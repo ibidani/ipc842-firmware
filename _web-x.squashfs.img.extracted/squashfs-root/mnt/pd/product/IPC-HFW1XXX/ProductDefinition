@@ -1,0 +1,32 @@
+// 与产品版本，功能定制相关的选项
+{
+	"Device" : "IPC-HFW1XXX",
+	"EncodingResolutionLimit" : [
+      [ "1080P","720P", "D1" ],
+      [ "D1" ],
+      null,
+      null,
+      [ "1080P","720P", "D1" ]
+   ],
+   "RotateResolutionLimit" : ["1080P","720P", "D1"],
+   	"DefaultLanguage" : "/usr/data/Strings/i18n",
+	"webSpec":"IPC2.420",
+	"webSubVer":"0" ,
+	"CustomLanguages" : "/mnt/custom/i18n",
+	"PreLanguage" : "/mnt/mtd/Config/preLanguage",
+	"HttpPath" : "/usr/data/Http",
+	"ProductInfo" : "/usr/data/ProductInfo",
+	"CifPFrameSize":[2,40],
+	"IEEE802_1X" : true,
+	"MotionDetectWindow" : 4,
+	"MaxPreRecordTime" :5,
+	"MaxMainStreamBitrate" : 4096,
+	"StreamTransmitChannels":20,
+	"RemoteStoreList":["FTP"],
+    "DetectLevelMap" : 
+    { 
+        "Sensitive" : [40, 50, 60, 70, 75, 80],
+        "Threshold" : [15, 10, 5, 6, 4, 2]
+    }
+
+}

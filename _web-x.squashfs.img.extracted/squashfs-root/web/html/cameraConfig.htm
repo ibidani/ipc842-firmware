@@ -1,0 +1,614 @@
+﻿<div id="page_cameraConfig" class="page_config">
+    <input id="CAMERA" type="hidden" />
+    <div class="ui-tab">
+        <ul>
+            <li id="camera_camara_label" data-for="Conditions" class="camera_tab_title ui-tab-current">Conditions</li>
+            <li id="camera_configmanage_label" data-for="config" class="camera_tab_title">Profile Management</li>
+            <li id="camera_autoFocus_label" data-for="autoFocus" class="camera_tab_title" style="display:none;">Zoom and Focus</li>
+            <li class="ui-tab-help">
+                <a href="javascript:;" id="camera_help"></a>
+            </li>
+        </ul>
+    </div>
+    <!--摄像头属性-->
+    <div class="ui-container camera_tab_con" id="camera_tab_Conditions">
+        <div class="camera-left">
+            <div id="camera_video_node" class="camera-video-box">
+                <div class="camera-video" id="camera_showVideo" oncontextmenu="return false"></div>
+            </div>
+            <div class="ui-video-bar camera-video-iconbar" id="camera_showFullScene">
+                <div  class="ui-video-iconbar">
+                    <a id="camera_btn_FullScene" href="javascript:;" class="ui-video-icon">
+                        <span class="ui-video-icon-full"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="ui-button-box fn-padt10">
+                <a id="camera_default" class="ui-button"  href="javascript:;"></a>
+                <a id="camera_refresh" class="ui-button" href="javascript:;"></a>
+                <a id="camera_confirm" class="ui-button" href="javascript:;"></a>
+            </div>
+            <div class="ui-tip">
+                <div class="ui-tip-container"  id="camera_remark">
+                    <span class="ui-tip-icon"></span>
+                    <label id="camera_remark_label"></label>
+                </div>
+            </div>
+        </div>
+        <div class="camera-right">
+            <form>
+                <div class="ui-form-item">
+                    <label class="ui-label fn-textright fn-bold" id="camera_configMode_label">Profile</label>
+                    <div class="fn-left fn-padl20">
+                        <select class="ui-select" id="camera_config_mode">
+                            <option value="2">Normal</option>
+                            <option value="0">Day</option>
+                            <option value="1">Night</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fn-horizontal-line"></div>
+                <div class="ui-form-item" id="camera_showBrightness">
+                    <label class="ui-label fn-textright" id="camera_Brightness_label">Brightness</label>
+                    <div class="ui-slider fn-left">
+                        <span class="ui-slider-icon-set-light fn-hide" ></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_Brightness"></a>
+                        <div id="camera_line_Brightness" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_Brightness" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_Brightness"></a>
+                        <span class="ui-slider-text " id="camera_Brightness_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showContrast">
+                    <label class="ui-label fn-textright" id="camera_Contrast_label">Contrast</label>
+                    <div class="ui-slider fn-left">
+                        <span class="ui-slider-icon-set-contrast fn-hide"></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_Contrast"></a>
+                        <div id="camera_line_Contrast" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_Contrast" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_Contrast"></a>
+                        <span class="ui-slider-text" id="camera_Contrast_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showSaturation">
+                    <label class="ui-label fn-textright" id="camera_Saturation_label">Saturation</label>
+                    <div class="ui-slider  fn-left">
+                        <span class="ui-slider-icon-set-saturation fn-hide"></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_Saturation"></a> 
+                        <div id="camera_line_Saturation" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_Saturation" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_Saturation"></a>
+                        <span class="ui-slider-text " id="camera_Saturation_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_Hue_label">Hue</label>
+                    <div class="ui-slider  fn-left">
+                        <span class="ui-slider-icon-set-chroma fn-hide"></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_Hue"></a> 
+                        <div id="camera_line_Hue" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_Hue" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_Hue"></a>
+                        <span class="ui-slider-text " id="camera_Hue_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showEEMode">
+                    <label class="ui-label fn-textright" id="camera_EEMode_label">Sharpness</label>
+                    <div class="ui-slider  fn-left">
+                        <span class="ui-slider-icon-set-sharpness fn-hide"></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_EEMode"></a> 
+                        <div id="camera_line_EEMode" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_EEMode" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_EEMode"></a>
+                        <span class="ui-slider-text " id="camera_EEMode_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item fn-clear" id="camera_line_gammaWrap">
+                    <label class="ui-label fn-textright" id="camera_gamma_label">Gamma</label>
+                    <div class="ui-slider  fn-left">
+                        <span class="ui-slider-icon-set-gamma fn-hide"></span>
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_gamma"></a> 
+                        <div id="camera_line_gamma" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_gamma" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_gamma"></a> 
+                        <span class="ui-slider-text " id="camera_gamma_title">50</span>
+                    </div>
+                </div>
+                <div id="camera_showAntiFlicker" class="ui-form-item fn-clear" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_AntiFlicker_label">Anti-flicker</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox fn-marr2">
+                            <input type="radio" id="camera_AntiFlicker_70" name="camera_selectRay" />
+                        </div>
+                        <label class="ui-label-sub fn-marr4 fn-minwid30" id="camera_AntiFlicker_70_label" for="camera_AntiFlicker_70">Outdoor</label>
+                        <div class="ui-checkbox fn-marr2">
+                            <input type="radio" id="camera_AntiFlicker_50" name="camera_selectRay" />
+                        </div>
+                        <label class="ui-label-sub fn-marr4 fn-minwid30" id="camera_AntiFlicker_50_label" for="camera_AntiFlicker_50">50Hz</label>
+                        <div class="ui-checkbox fn-marr2">
+                            <input type="radio" id="camera_AntiFlicker_60" name="camera_selectRay" />
+                        </div>
+                        <label class="ui-label-sub fn-marr4 fn-minwid30" id="camera_AntiFlicker_60_label" for="camera_AntiFlicker_60">60Hz</label>
+                    </div>
+                </div>
+                <div id="camera_showExposureMode" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_ExposureMode_label">Exposure</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_ExposureMode" class="ui-select"></select>
+                    </div>
+                </div>
+                <div id="camera_showExposureSpeed" class="ui-form-item" style="display:block;">
+                    <label class="ui-label fn-textright" id="camera_ExposureSpeed_label">Shutter</label>
+                    <div class="fn-left fn-padl20" id="camera_showExposureSpeed_slct">
+                        <select id="camera_ExposureSpeed" class="ui-select"></select>
+                    </div>
+                </div>
+                <div id="camera_showExposureSlct" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_ExposureSlct_label">Shutter</label>
+                    <div class="fn-left fn-padl20" id="">
+                        <select id="camera_ExposureSlct" class="ui-select"></select>
+                    </div>
+                </div>
+                <div id="camera_showExposure" class="ui-form-item" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_Exposure_label">Shutter</label>
+                    <div class="fn-left fn-padl20" id="camera_Exposure"></div>
+                </div>
+                
+                <div id="camera_showGain" class="ui-form-item" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_Gain_label">Gain</label>
+                    <div class="fn-left fn-padl20" id="camera_showGainScope">
+                        <input id="camera_GainMin" maxlength='4' type="text" class="ui-input fn-width40"/>
+                        <span class="ui-symbol" id="camera_GainIcon">~</span> 
+                        <input id="camera_GainMax" maxlength='4' type="text" class="ui-input fn-width40"/>
+                        <span class="ui-text">(0~100)</span>
+                    </div>
+                </div>
+                <div id="camera_showGainRange" class="ui-form-item" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_GainRange_label">Gain Regulate</label>
+                    <div class="ui-slider fn-left" id="camera_showGainRange_input">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_Gain"></a>
+                        <div id="camera_line_Gain" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_Gain" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_Gain"></a>
+                        <span class="ui-slider-text " id="camera_Gain_title">50</span>
+                    </div>
+                </div>
+                <div id="camera_showAutoIris" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_autoIris_label">Auto Iris</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_autoIris_enable" name="camera_autoIris"  type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" for="camera_autoIris_enable" id="camera_autoIris_enable_label">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_autoIris_disable" name="camera_autoIris" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" for="camera_autoIris_disable" id="camera_autoIris_disable_label">OFF</label>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showAutoIrisValue" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_AutoIrisValue_label"></label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_AutoIris"></a> 
+                        <div id="camera_line_AutoIris" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_AutoIris" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_AutoIris"></a> 
+                        <span class="ui-slider-text " id="camera_AutoIris_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_WhiteBalance_label">White Balance</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_whiteBalance" class="ui-select"></select>
+                    </div>
+                </div>
+                <div id="camera_showRedGain" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_redGain_label">Red</label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_redGain"></a>
+                        <div id="camera_line_redGain" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_redGain" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_redGain"></a>
+                        <span class="ui-slider-text " id="camera_redGain_title">50</span>
+                    </div>
+                </div>
+                <div id="camera_showBlueGain" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_blueGain_label">Blue</label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_blueGain"></a> 
+                        <div id="camera_line_blueGain" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_blueGain" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_blueGain"></a> 
+                        <span class="ui-slider-text " id="camera_blueGain_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_dayNightColor_wrap">
+                    <label class="ui-label fn-textright" id="camera_DayNightColor_label">Day &amp; Night</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_DayNightColor" class="ui-select"></select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showSensitivity">
+                    <label class="ui-label fn-textright" id="camera_Sensitivity_label">D&amp;N Sensitivity</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_Sensitivity" class="ui-select">
+                            <option value="3">Low</option>
+                            <option value="2">Middle</option>
+                            <option value="1">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showDelay">
+                    <label class="ui-label fn-textright" id="camera_Delay_label">D&amp;N Delay</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_DayNightDelay" class="ui-select"></select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showSmartIR" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_SmartIR_label">Smart IR</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_SmartIR_enable" name="camera_SmartIR" type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" id="camera_SmartIR_enable_label" for="camera_SmartIR_enable">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_SmartIR_disable" name="camera_SmartIR" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" id="camera_SmartIR_disable_label" for="camera_SmartIR_disable">OFF</label>
+                    </div>
+                </div>
+                <div class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_backlight_label">BLC Mode</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-form-item">
+                            <select id="camera_backlight" class="ui-select"></select>
+                            <a href="javascript:;" class="nolight" id="camera_btn_backlight" style="display:none;"></a>
+                        </div>
+                        <div id="camera_showBacklightMode" class="ui-form-item" style="display:none;">
+                            <div class="ui-checkbox">
+                                <input name="camera_selectBack" type="radio" id="camera_backlightDefault"/>
+                            </div>
+                            <label class="ui-label-sub" for="camera_backlightDefault" id="camera_backDefault_label">Default</label>
+                            <div class="ui-checkbox">
+                                <input name="camera_selectBack" type="radio" id="camera_backlightCustom"/>
+                            </div>
+                            <label class="ui-label-sub" for="camera_backlightCustom" id="camera_backCustom_label">Customized</label>
+                        </div>
+                        <div  id="camera_showWDR" class="ui-form-item" style="display:none;">
+                            <div class="ui-checkbox">
+                                <input name="camera_selectLevel" type="radio" id="camera_showWDR_Low"/>
+                            </div>
+                            <label class="ui-label-sub" for="camera_showWDR_Low" id="camera_showWDR_Low_label" >弱</label>
+                            <div class="ui-checkbox">
+                                <input name="camera_selectLevel" type="radio" id="camera_showWDR_Middle"/>
+                            </div>
+                            <label class="ui-label-sub" for="camera_showWDR_Middle" id="camera_showWDR_Middle_label" >中</label>
+                            <div class="ui-checkbox">
+                                <input name="camera_selectLevel" type="radio" id="camera_showWDR_High"/>
+                            </div>
+                            <label class="ui-label-sub" for="camera_showWDR_High" id="camera_showWDR_High_label" >强</label>
+                        </div>
+                        <div class="ui-slider ui-form-item"  id="camera_showWDRValue" style="display:none;">
+                            <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_WDR"></a> 
+                            <div id="camera_line_WDR" class="ui-slider-container fn-width120 fn-marl0">
+                                <div id="camera_icon_WDR" class="ui-slider-sax"></div>
+                            </div>
+                            <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_WDR"></a> 
+                            <span class="ui-slider-text " id="camera_WDR_title">50</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showLightGlobal" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_LightGlobal_label">Light Global</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_LightGlobal" class="ui-select">
+                            <option value="1">ON</option>
+                            <option value="0">Close</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showMirror" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_Mirror_label">Mirror</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_Mirror_enable" name="camera_Mirror" type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" id="camera_Mirror_enable_label" for="camera_Mirror_enable">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_Mirror_disable" name="camera_Mirror" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" id="camera_Mirror_disable_label" for="camera_Mirror_disable">OFF</label>
+                    </div>
+                </div>
+                <div id="camera_showFlip" class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_flip_label">Flip</label>
+                    <div class="fn-left fn-padl20" id="camera_flip">
+                    </div>
+                </div>
+                <!--3D降噪-->
+                <div class="ui-form-item" id="camera_3DradioDepressNoise" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_3DDeNoise_label">3D NR</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_3DRDeNoiseOn" name="camera_3Dradio" type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" id="camera_on3D" for="camera_3DRDeNoiseOn">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_3DRDeNoiseOff" name="camera_3Dradio" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" id="camera_off3D" for="camera_3DRDeNoiseOff">OFF</label>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_3DshowEstimate" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_3Destimate_label">3D NR Level</label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_3Destimate"></a>
+                        <div id="camera_line_3Destimate" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_3Destimate" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_3Destimate"></a>
+                        <span class="ui-slider-text " id="camera_3Destimate_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_3Dintension" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_3Dintension_label">Intensity</label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_3Dintension"></a> 
+                        <div id="camera_line_3Dintension" class="ui-slider-container fn-width120">
+                            <div id="camear_icon_3Dintension" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_3Dintension"></a> 
+                        <span class="ui-slider-text " id="camera_3Dintension_title">50</span>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showVideoStabilization" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_VideoStabilization_label">EIS</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_VideoStabilization_enable" name="camera_VideoStabilization" type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" id="camera_VideoStabilization_enable_label" for="camera_VideoStabilization_enable">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_VideoStabilization_disable" name="camera_VideoStabilization" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" id="camera_VideoStabilization_disable_label" for="camera_VideoStabilization_disable">OFF</label>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showVideoInDefog" style="display: none;">
+                    <label class="ui-label fn-textright" id="camera_VideoInDefog_label">Defog</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_VideoInDefogMode" class="ui-select">
+                            <option value="Off">Off</option>
+                            <option value="Auto">Auto</option>
+                            <option value="Manul">Manul</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="camera_ShowVideoInDefogModeWrap"  class="ui-form-item" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_VideoInDefogModeStrong_label">strength</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_VideoInDefogModeStrong" class="ui-select">
+                            <option value="0">1</option>
+                            <option value="1">2</option>
+                            <option value="2">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showLightIntensityMode" style="display: none;">
+                    <label class="ui-label fn-textright" id="camera_LightIntensityMode_label">Mode</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_LightIntensityMode" class="ui-select">
+                            <option value="Auto">Auto</option>
+                            <option value="Manul">Manul</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="camera_ShowLightIntensityModeStrongWrap" class="ui-form-item" style="display:none;">
+                    <label class="ui-label fn-textright" id="camera_LightIntensityModeStrong_label">strength</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_LightIntensityModeStrong" class="ui-select">
+                            <option value="0">1</option>
+                            <option value="1">2</option>
+                            <option value="2">3</option>
+                            <option value="3">4</option>
+                            <option value="4">5</option>
+                            <option value="5">6</option>
+                            <option value="6">7</option>
+                            <option value="7">8</option>
+                            <option value="8">9</option>
+                            <option value="9">10</option>
+                            <option value="10">11</option>
+                            <option value="11">12</option>
+                            <option value="12">13</option>
+                            <option value="13">14</option>
+                            <option value="14">15</option>
+                            <option value="15">16</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showUnFocusDetect" style="display:none">
+                    <label class="ui-label fn-textright" id="camera_UnFocusDetect_label">Defocus Detect</label>
+                    <div class="fn-left fn-padl20">
+                        <div class="ui-checkbox">
+                            <input id="camera_UnFocusDetect_enable" name="camera_UnFocusDetect" type="radio"/>
+                        </div>
+                        <label class="ui-label-sub" id="camera_UnFocusDetect_enable_label" for="camera_UnFocusDetect_enable">ON</label>
+                        <div class="ui-checkbox">
+                            <input id="camera_UnFocusDetect_disable" name="camera_UnFocusDetect" type="radio" />
+                        </div>
+                        <label class="ui-label-sub" id="camera_UnFocusDetect_disable_label" for="camera_UnFocusDetect_disable">OFF</label>
+                    </div>
+                </div>
+                <div class="ui-form-item" id="camera_showUnFocusDetectValue" style="display:none">
+                    <label class="ui-label fn-textright" id=""></label>
+                    <div class="ui-slider  fn-left">
+                        <a class="ui-slider-less fn-hide" href="javascript:;" id="camera_less_UnFocusDetect"></a> 
+                        <div id="camera_line_UnFocusDetect" class="ui-slider-container fn-width120">
+                            <div id="camera_icon_UnFocusDetect" class="ui-slider-sax"></div>
+                        </div>
+                        <a class="ui-slider-more fn-hide" href="javascript:;" id="camera_add_UnFocusDetect"></a> 
+                        <span class="ui-slider-text " id="camera_UnFocusDetect_title">50</span>
+                    </div>
+                </div>
+
+                <div class="ui-form-item">
+                    <label class="ui-label fn-textright" id="camera_InfraRed_label">InfraRed</label>
+                    <div class="fn-left fn-padl20">
+                        <select id="camera_InfraRed" class="ui-select">
+                            <option value="true">Auto</option>
+                            <option value="false">Close</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <!--配置管理-->
+    <div class="ui-container camera_tab_con" id="camera_tab_config" style="display:none;">
+        <form class="ui-form">
+            <div class="ui-form-item">
+                <label class="ui-label fn-padl20" id="camera_dayNight_label">Profile Management</label>
+                <div class="ui-checkbox">
+                    <input type="radio" name="camera_switchMode" id="camera_radio_normal" />
+                </div>
+                <label class="ui-label-sub" id="camera_normal_label" for="camera_radio_normal">Normal</label>
+                <div class="ui-checkbox">
+                    <input type="radio" name="camera_switchMode" id="camera_radio_fullTime"/>
+                </div>
+                <label class="ui-label-sub" id="camera_fullTime_label" for="camera_radio_fullTime">Full Time</label>
+                <div class="ui-checkbox">
+                    <input type="radio" name="camera_switchMode" id="camera_radio_exittime"/>
+                </div>
+                <label class="ui-label-sub" id="camera_changeTime_label" for="camera_radio_exittime">Schedule</label>
+            </div>
+            <div id="camera_showPeriod" class="ui-form-item" style="display:none;">
+                <label class="ui-label fn-padl20 fn-mart30" id="camera_dayTime_label">Period setting</label>
+                <div class="fn-left">
+                    <div class="camera-time">
+                        <div class="camera-time-title" id="camera_slider_timeTitle" style="display:none;">05:00</div>
+                        <div class="camera-time-bar" id="camera_slider_line">
+                            <div class="camera-time-night"></div>
+                            <div class="camera-time-day" id="camera_slider_daytime"></div>
+                            <div class="camera-time-line" id=""></div>
+                        </div>
+                        <div class="camera-time-slider-left" id="camera_dayTime_slider"></div>
+                        <div class="camera-time-slider-right" id="camera_nightTime_slider"></div>
+                    </div>
+                    <div class="camera-time-num">
+                        <ul>
+                            <li>0:00</li>
+                            <li>4:00</li>
+                            <li>8:00</li>
+                            <li>12:00</li>
+                            <li>16:00</li>
+                            <li>20:00</li>
+                            <li class="last_one">24:00</li>
+                        </ul>
+                    </div>
+                    <div class="camera-time-tips">
+                        <a id="camera_Daytime" class="fn-left fn-marr10"> <i class="camera-timetip-icon-day"></i>
+                            <label id="camera_Daytime1_label">Day</label>
+                        </a>
+                        <a id="camera_Nighttime" class="fn-left"> <i class="camera-timetip-icon-night"></i>
+                            <label id="camera_Nighttime1_label">Night</label>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-form-item" id="camera_showFullTime" style="display:none">
+                <label class="ui-label fn-padl20" id="camera_use_label">Always Enable</label>
+                <div class="fn-left">
+                    <select id="camera_useMode" class="ui-select">
+                        <option value="0">day</option>
+                        <option value="1">night</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ui-button-box fn-padt10 fn-marl140">
+                <a id="camera_default1" class="ui-button"  href="javascript:;"></a>
+                <a id="camera_refresh1" class="ui-button" href="javascript:;"></a>
+                <a id="camera_confirm1" class="ui-button" href="javascript:;"></a>
+            </div>
+            <div  class="ui-tip fn-marl140">
+                <div class="ui-tip-container"  id="camera_remark1" style="display:none">
+                    <span class="ui-tip-icon"></span>
+                    <label id="camera_remark1_label">Save Succeeded!</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--聚焦缩放-->
+    <div class="ui-container camera_tab_con" id="camera_tab_autoFocus" style="display:none;">
+        <div class="camera-fouse-box" id="camera-fouse-box">
+            <div class="camera-fouse" oncontextmenu="return false"></div>
+        </div>
+        <div id="sliderBox" class="fn-marl20">
+            <form>
+                <div id="camera_ABF" class="ui-form-item">
+                    <label class="ui-label fn-width40" id="camera_zoomText">Zoom</label>
+                    <span class="ui-text fn-textright fn-width60" id="camera_wideText">WIDE</span>
+                    <div class="ui-slider fn-left">
+                        <a class="ui-slider-less" href="javascript:;" id="camera_zoomLess"></a>
+                        <div id="camera_zoomL" class="ui-slider-container fn-width225">
+                            <div id="camera_zoomS" class="ui-slider-sax"></div>
+                            <div id="camera_zoomEstop" class="ui-slider_estop fn-width225"></div>
+                        </div>
+                        <a class="ui-slider-more" href="javascript:;" id="camera_zoomMore"></a>
+                    </div>
+                    <span class="ui-text fn-width60 fn-padl4" id="camera_teleText">TELE</span>
+                    <label class="ui-label fn-width40" id="camera_stepZoomText">Speed</label>
+                    <select class="ui-select" id="camera_zoomStep">
+                        <option value=1 >1</option>
+                        <option value=5 >5</option>
+                        <option value=20 >20</option>
+                    </select>
+                    <a href="javascript:;" class="ui-button fn-marl10 fn-left" id="camera_restoryAll">Restore All</a>
+                    <div id="camera_syncFocusRestartAll" class="fn-left"></div>
+                </div>
+                <div id="camera_syncFocus" class="ui-form-item fn-mart10 ">
+                    <label class="ui-label fn-width40" id="camera_focusText">Focus</label>
+                    <span class="ui-text fn-textright fn-width60" id="camera_nearText">NEAR</span>
+                    <div class="ui-slider fn-left">
+                        <a class="ui-slider-less" href="javascript:;" id="camera_focusLess"></a>
+                        <div id="camera_focusL" class="ui-slider-container fn-width225">
+                            <div id="camera_focusS" class="ui-slider-sax"></div>
+                            <div id="camera_focusEstop" class="ui-slider_estop fn-width225"></div>
+                        </div>
+                        <a class="ui-slider-more" href="javascript:;" id="camera_focusMore"></a>
+                    </div>
+                    <span class="ui-text fn-width60 fn-padl4" id="camera_farText">FAR</span>
+                    <label class="ui-label fn-width40" id="camera_focusZoomText">Speed</label>
+                    <div class="fn-left">
+                        <select class="ui-select" id="camera_focusStep">
+                            <option value=1 >1</option>
+                            <option value=5 >5</option>
+                            <option value=20 >20</option>
+                        </select>
+                    </div>
+                    <div id="camera_ABFFocus" class="fn-left">
+                        <a href="javascript:;"  id="camera_autoFocus" class="ui-button-special fn-marl10">
+                            <span class="ui-button-icon-fouse">&nbsp;</span>
+                            <label id="camera_autoFocusText">Auto Focus</label>
+                        </a>
+                    </div>
+                    <div id="camera_ABFRestartAll" class="fn-left"></div>
+                    <div id="camera_focusRestart" class="fn-left">
+                        <a href="javascript:;" class="ui-button" id="camera_restartAll">Refresh</a>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

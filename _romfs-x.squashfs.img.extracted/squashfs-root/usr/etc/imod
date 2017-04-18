@@ -1,0 +1,64 @@
+#! /bin/sh
+
+#distinguish IPC and SpeedDome device by HWID
+#SD device category flag equal 3
+
+
+cd /usr/lib/modules
+insmod mmz.ko mmz=anonymous,0,0x84D00000,38M:buf0,0,0x87300000,8M:buf1,0,0x87B00000,3M:buf2,0,0x87E00000,2M anony=1 || report_error
+insmod hi3518_base.ko
+insmod hi3518_sys.ko
+insmod hiuser.ko
+
+insmod hi3518_tde.ko
+insmod hi3518_dsu.ko
+
+insmod hi3518_viu.ko csc_tv_en=1 csc_ct_mode=1 ext_csc_en=1
+
+insmod hi3518_isp.ko
+insmod hi3518_vpss.ko
+
+insmod hi3518_venc.ko VencBufferCache=1
+insmod hi3518_group.ko
+insmod hi3518_chnl.ko
+insmod hi3518_h264e.ko ContiguousBuffer=1
+insmod hi3518_jpege.ko ContiguousBuffer=1
+insmod hi3518_rc.ko
+insmod hi3518_region.ko
+
+insmod hi3518_ive.ko
+
+insmod osa.ko
+insmod log.ko
+insmod binder.ko
+#insmod binder.ko r0size=16 r2size=220
+insmod dmaf.ko
+insmod spf.ko
+
+insmod prc.ko
+insmod pdc.ko gBaseline=240
+
+insmod pwm.ko
+insmod ssp_ad9020.ko
+
+
+touch /tmp/enc2app_data
+touch /tmp/enc2app_cmd
+touch /tmp/cmd_shmarea
+touch /tmp/myencodemsg
+
+STRING=$(gethwid 2)
+temp=${STRING##*hwidValue == }
+CATEGORY=${temp%% *}
+echo CATEGORY = $CATEGORY 
+
+
+if [ $CATEGORY -eq 3 ];then
+	echo "SD Device"
+	/usr/etc/SDimod
+else
+	echo "IPC Device"
+	/usr/etc/IPCimod
+fi
+
+

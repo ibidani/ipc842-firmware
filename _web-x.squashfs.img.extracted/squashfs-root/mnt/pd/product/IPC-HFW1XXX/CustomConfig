@@ -1,0 +1,436 @@
+// 用户自定义默认配置，树形结构和工作配置相同，对需要定制的默认值填上对应的值
+// 否则使用程序写死的默认值
+{
+   "DVRIP" : {
+	     "MaxConnections" : 10,
+	     "RegisterServer" : {
+	     "DeviceID" : "none"
+	      }
+	  },
+	  "General" : {
+		   "LockLoginEnable" : true,
+		   "LockLoginTimes" : 5,
+		   "LoginFailLockTime" : 300
+		},
+		"WLan" : {
+		   "eth2" : {
+			  "Enable" : true
+			  }
+		},
+	 "Multicast":{
+		"RTP":[{"Enable":true},{"Enable":true}],
+		"RTPAudio":[{"Enable":true},{"Enable":true}]
+		}, 
+	  "Email" : {
+	  "Enable" : true,
+	  "Address" : "none",
+	  "SendAddress" : "none",
+	  "OnlyAttachment" : true,
+	  "SendInterv" : 10,
+	  "Title" : "IPC Message"
+	  },
+	  "AutoMaintain" : {
+	     "AutoRebootDay" : 2,
+	     "AutoRebootHour" : 2
+	  },
+	  "MediaGlobal" : {
+	     "PacketLength" : 8
+	  },
+	  "VideoColor" : [[
+	  {
+         "Brightness" : 50,
+         "Contrast" : 50,
+         "Hue" : 50,
+         "Saturation" : 50,
+         "TimeSection" : "1 00:00:00-24:00:00"
+      },
+      {
+         "Brightness" : 50,
+         "Contrast" : 50,
+         "Hue" : 50,
+         "Saturation" : 50,
+         "TimeSection" : "0 00:00:00-24:00:00"
+      },
+      {
+         "Brightness" : 50,
+         "Contrast" : 50,
+         "Hue" : 50,
+         "Saturation" : 50,
+         "TimeSection" : "0 00:00:00-24:00:00"
+      }
+	  ]],
+	 "Network" : {
+	  "eth0" : {
+	  "IPAddress" : "192.168.1.108",
+	  "SubnetMask" : "255.255.255.0",
+	  "DefaultGateway" : "192.168.1.1",
+	  "DhcpEnable" : true,
+	  "DnsServers" : ["8.8.8.8", "8.8.4.4"]
+	  },	  
+	    "eth2" : {
+	  "IPAddress" : "192.168.0.108",
+	  "SubnetMask" : "255.255.255.0",
+	  "DefaultGateway" : "192.168.0.1",
+	  "DhcpEnable" : true,
+	  "DnsServers" : ["8.8.8.8", "8.8.4.4"]
+	  }
+	  },
+	  "NTP" : {
+	  "Enable" : false,
+	  "TimeZone" : 26,
+	  "UpdatePeriod" : 10
+	  },
+	  "DDNS" : [{
+	     "Protocol" : "CN99 DDNS",
+	     "Address" : "www.3322.org",
+	     "HostName" : "none",
+	     "Port" : 80,
+	     "UserName": "none",
+	     "Password" : "none",
+	     "KeepAlive" : 10
+	  	},
+		{
+	     "Protocol" : "NO-IP DDNS",
+	     "Address" : "dynupdate.no-ip.com",
+	     "HostName" : "none",
+	     "Port" : 80,
+	     "UserName": "none",
+	     "Password" : "none",
+	     "KeepAlive" : 10
+	  	},
+	  	{
+	     "Protocol" : "Dyndns DDNS",
+	     "Address" : "members.dyndns.org",
+	     "HostName" : "none",
+	     "Port" : 80,
+	     "UserName": "none",
+	     "Password" : "none",
+	     "KeepAlive" : 10
+		},
+	  	{
+	     "Protocol" : "QUICK DDNS",
+	     "Address" : "www.quickddns.com",
+	     "Port" : 12366,
+	     "UserName": "",
+	     "Password" : "",
+	     "KeepAlive" : 10
+	  	},
+		{
+			"Protocol" : "Private Old DDNS",
+			"Address" : "none",
+			"HostName" : "none",
+			"Port" : 7070,
+			"UserName": "none",
+			"Password" : "none",
+			"KeepAlive" : 10
+		}
+	  ],
+	  "T2UServer" : {
+          "Address" : "p2p.amcrestview.com",
+	  "Enable" : true,
+	  "Key" : "Amcrest_20150106-oyjL",
+	  "Port" : 8800,
+	  "RegisterPort" : 12366,
+	  "RegisterServer" : "amcrestview.com",
+	  "Type" : "dhp2p",
+	  "WebVersion" : "2.420.0"
+			},
+	  "UPnP" : {
+		"MapTable": [
+        {
+            "Enable": true,
+            "InnerPort": 80,
+            "OuterPort": 8080,
+            "Protocol": "TCP",
+            "ServiceName": "WebService"
+        },
+        {
+            "Enable": true,
+            "InnerPort": 37777,
+            "OuterPort": 37777,
+            "Protocol": "TCP",
+            "ServiceName": "PrivService"
+        },
+        {
+            "Enable": true,
+            "InnerPort": 37778,
+            "OuterPort": 37778,
+            "Protocol": "UDP",
+            "ServiceName": "PrivService"
+        },
+        {
+            "Enable": true,
+            "InnerPort": 554,
+            "OuterPort": 554,
+            "Protocol": "TCP",
+            "ServiceName": "RTSPService"
+        },
+        {
+            "Enable": true,
+            "InnerPort": 443,
+            "OuterPort": 443,
+            "Protocol": "TCP",
+            "ServiceName": "HTTPSService"
+        }
+    	]
+	},	
+	  "Encode" : [ {
+	     "MainFormat" : [ {
+		 "AudioEnable" : false,
+			"Audio" : {
+               "Compression" : "G.711A"
+				},
+	  		"Video" : {
+				"Compression" : "H.264",
+				"Profile" : "High",
+					"CustomResolutionName": "1080P",
+	  			"BitRate" : 4096,
+	  			"BitRateControl" : "CBR"
+	  			}
+	  		},
+	  		 {
+			 "Audio" : {
+               "Compression" : "G.711A"
+				},
+	  		"Video" : {
+				"Compression" : "H.264",
+				"Profile" : "High",
+	  			"CustomResolutionName": "1080P",
+	  			"BitRate" : 4096,
+	  			"BitRateControl" : "CBR"
+	  			}
+	  		},
+	  		 {
+			 "Audio" : {
+               "Compression" : "G.711A"
+				},
+	  		"Video" : {
+				"Compression" : "H.264",
+				"Profile" : "High",				
+					"CustomResolutionName": "1080P",
+	  			"BitRate" : 4096,
+	  			"BitRateControl" : "CBR"
+	  			}
+	  		},
+			{
+			 "Audio" : {
+               "Compression" : "G.711A"
+				},
+	  		"Video" : {
+				"Compression" : "H.264",
+				"Profile" : "High",
+				"CustomResolutionName": "1080P",
+	  			"BitRate" : 4096,
+	  			"BitRateControl" : "CBR"
+	  			}
+	  		}],	   
+	  	"ExtraFormat" : [ {
+	  		"AudioEnable" : false,
+			"Audio" : {
+               "Compression" : "G.711A"
+            },
+	  		"VideoEnable" : true,
+	  		"Video" : {
+	  			"Compression" : "H.264",
+				"CustomResolutionName": "VGA",
+	  			"BitRate" : 1024,
+	  			"BitRateControl" : "CBR",
+	  			"Profile" : "High"
+	  			}
+	  	}],	  
+	  	"SnapFormat":[ {	  		
+	  		"Video" : {
+	  		  "Compression" : "MJPG",
+	  		  "Quality" : 5,
+					"CustomResolutionName": "1080P"
+	  			}
+	  		},
+	  		 {
+	  		"Video" : {
+	  		  "Compression" : "MJPG",
+	  		  "Quality" : 5,
+					"CustomResolutionName": "1080P"
+	  			}
+	  		},
+	  		 {
+	  		"Video" : {
+	  			"Compression" : "MJPG",
+	  			"Quality" : 5,
+					"CustomResolutionName": "1080P"
+	  			}
+	  		}]
+	  }],
+	  "VideoInOptions" : [ {
+	  	"IrisAuto" : true,
+	  	"WhiteBalance" : "Auto",
+	  	"DayNightColor" : 1,
+	 		"Gain" : 50,
+	 		"ExternalSync" : 0,
+		"GainMax" : 70,
+        	"NightOptions" : {
+				"SwitchMode": 0,
+                "DayNightColor" : 1
+            	},
+        	"NormalOptions" : {
+				"SwitchMode": 0,
+                "DayNightColor" : 1
+            	}
+	  }],
+	   "VideoEncodeROI" : [{
+		"Main" : false
+		}],
+	  "VideoInPreviewOptions" :[ {
+		"SwitchMode": 3,
+		"DayOptions": {
+		"TridimDenoise" : 1,
+		"TridimEstimation" : 50},
+		"NightOptions": {
+		"TridimDenoise" : 1,
+		"TridimEstimation" : 50},
+		"NormalOptions": {
+		"TridimDenoise" : 1,
+		"TridimEstimation" : 50}
+	  }],
+	  "Record" : [ {
+	      "TimeSection" : 
+		[
+  		       ["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			],
+  			["393222 00:00:00-23:59:59",
+  			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59",
+			"0 00:00:00-23:59:59"
+  			]
+                ],
+              "PreRecord" : 3
+              }],
+        "MotionDetect" : [{
+		"Enable" : true,
+	  	"EventHandler" : {
+	  		"Dejitter" : 5
+	  	},
+	  	"MotionDetectWindow" : [
+	  	  {
+		"Name" : "Region1",
+        "Sensitive" : 60,
+        "Threshold" : 5
+      	},
+      	{
+        "Name" : "Region2",
+        "Sensitive" : 60,
+        "Threshold" : 5
+      	},
+      	{
+        "Name" : "Region3",
+        "Sensitive" : 60,
+        "Threshold" : 5
+      	},
+      	{
+        "Name" : "Region4",
+        "Sensitive" : 60,
+        "Threshold" : 5
+      	}
+      	]
+	  }],
+	  "RecordStoragePoint" : [ {
+	  	"AlarmRecord" : {
+			"Local" : true,
+			"FTP" : false
+		},
+		"AlarmSnapShot" : {
+			"Local" : true,
+			"FTP" : false
+		},
+		"EventRecord" : {
+		  "Remote" : true,
+			"Local" : false
+		},
+		"EventSnapShot" : {
+			"Remote" : false,
+			"Local" : true
+		},
+		"ManualRecord" : {
+			"Remote" : false,
+			"Local" : true
+		},
+		"ManualSnapShot" : {
+			"Remote" : false,
+			"Local" : true
+		},
+		"TimingRecord" : {
+			"FTP" : false,
+			"Local" : true
+		},
+		"TimingSnapShot" : {
+			"FTP" : false,
+			"Local" : true
+		},
+		"VideoDetectRecord" : {
+			"FTP" : false,
+			"Local" : true
+		},
+		"VideoDetectSnapShot" : {
+			"FTP" : false,
+			"Local" : true
+		}
+	  } ],
+	  "SNMP" : {
+		"SysContact" : "syscontact market@dahuatech.com"
+	  },
+	  "NetAbort": {
+        "Enable": true,
+        "EventHandler": {
+            "AlarmOutEnable": false,
+            "RecordEnable": false
+        }
+    },
+    "IPConflict": {
+        "Enable": true,
+        "EventHandler": {
+            "AlarmOutEnable": false,
+            "RecordEnable": false
+        }
+    }
+}

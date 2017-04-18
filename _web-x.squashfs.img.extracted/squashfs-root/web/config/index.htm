@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../jsCore/m.js?version=2.400"></script>
+    <script src="../jsCore/more.js?version=2.400"></script>
+    <script src="../jsCore/rpcCore.js?version=2.400"></script>
+    <script src="../jsCore/common.js?version=2.400"></script>
+    <script src="../jsCore/base64.js?version=2.400"></script>
+    <script src="../jsCore/md5.js?version=2.400"></script>
+    <script src="../jsCore/rpcLogin.js?version=2.400"></script>
+    <script src="../js/ptzCtrl.js?version=2.400"></script>
+    <script src="../js/publicFunc.js?version=2.400"></script>
+    <script src="../js/loginEx.js?version=2.400"></script>
+    <script src="../js/set.js?version=2.400"></script>
+    <script src="../jsCore/publicLibrary.js?version=2.400"></script>
+    <script src="../jsCore/qrcode.js?version=2.400"></script>
+    <script src="../js/ui-schedule.js?version=2.400"></script>
+    <link rel="stylesheet" href="../css/reset.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/ui.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/custom.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/skin.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/main.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/set.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/resize.css?version=2.400"/>
+    <link rel="stylesheet" href="../css/fn.css?version=2.400"/>
+</head>
+<body style="background:#fff;">
+
+
+    <div id="set_page_wrap"></div>
+    <div id="video_content" style="position:absolute;top:-10000px;z-index: 9999">
+        <div id="video1" class="main-video" style="width:1px; height:1;"></div>
+    </div>
+    <div class="J_estop_all" style="display:none;" id="estopAll"></div>
+
+<script>
+var base_pwd = '';
+var webCaps = getWebCapsConfig();
+var currenDeviceType = webCaps.deviceType; //当前设备
+var currenVendor = webCaps.vendor; //判断是否大华版本
+var g_isHasFocus = false;//自动聚焦能力
+var g_isHasSyncFocus = false;//同步聚焦能力
+var g_isABFFunction = false;//ABF自动调后焦
+var g_wirelessCap = false;//无线报警能力
+var g_isHasfisheye;//是否具有鱼眼
+var alarm_Wireless_num = 0;//最大输入数
+var g_audioInputNum = null; // 记录音频输入数
+var g_audioOutputNum = null; // 记录音频输出数
+var support_scenes = ['normal'];//智能界面的应用场景。普通、人脸、交通
+var support_sceneTypes = ['SingleScene','MultiScene','FullScene'];
+//IPC智能是否显示, 这里定义为null而不设为false是为了在set.js里去获取一下配置
+//在getIntellent方法里去 magic.getProductDef 一下，取到产品智能信息
+var IPCIntellentShow = null; 
+var b_sendContinue = false;//电动聚焦的pss登陆网页报错兼容变量。
+
+//音频检测能力
+var g_audioMangerCap = {
+    audioMangerCap: false,
+    VolumeDetect: false,
+    AnomalyDetect: false,
+    MutationDetect: false   
+};
+/**
+ * 登录控件
+ * @param  {String} username 用户名
+ * @param  {String} password 密码
+ */
+function loginOCX(username, password) {
+    $('ocx') && $('ocx').RegisterTranslateFunc(tl);
+    $('ocx') && $('ocx').LoginDeviceEx(Site.hostname, Site.httpport, username, password, 0);
+    $('ocx') && $('ocx').SetModuleMode(0);
+}
+
+function parseParams(keyStr) {
+    var paramHash = new Hash();
+    var parms = keyStr.split('&');
+    for (var i = 0; i < parms.length; i++) {
+        var start = parms[i].indexOf('=');
+        if (start < 0) {
+            return -1;
+        } else {
+            paramHash.include(parms[i].slice(0, start), parms[i].slice(start + 1));
+        }
+    }
+    return paramHash;
+}
+
+function initPluginsWhenInstalled(username, password) {
+    if (checkPlugins()) {
+        hasPlugin = true;
+        loadPlugin(true);
+
+        // 如果使用HTTPS登录WEB，就去获取HTTP端口号
+        if(location.protocol.toLowerCase().contains('https')){
+            Site.httpport = getHttpPort();
+        }
+        loginOCX(username, password);
+
+        if (Site.currentPage.isSetup) {
+            if(Site.currentPage.is['cameraConfig']){
+                Page.cameraConfig.render();
+            }
+            if(Site.currentPage.is['encodeConfig'] && $('video_OSD_tab').hasClass('ui-tab-current')){
+                Page.encodeConfig.render();
+            }
+            if(Site.currentPage.is['encodeConfig'] && $('video_Intel_tab').hasClass('ui-tab-current')){
+                Page.encodeConfig.render();
+            }
+            if(Site.currentPage.is['videoDetectConfig'] && $('videoDetect_motion').hasClass('ui-tab-current')
+                    && $('videoDetect_zone').getStyle('top') != '-10000px'){
+                Page.videoDetectConfig.Tab['motionDetect']._setZoneClick();
+            }
+            if(Site.currentPage.is['ipcIntellentConfig']){
+                $$('.ipcintellent_tab_title.ui-tab-current').fireEvent('click');
+            }
+            if(Site.currentPage.is['ipcFacedectetionConfig']){
+                $$('.ipc_face_tab_title.ui-tab-current').fireEvent('click');
+            }
+            if(Site.currentPage.is['ipcIntellentNewConfig']){
+                $$('.ipcIntellentNew_tab_title.ui-tab-current').fireEvent('click');
+            }
+            
+        }
+    } else {
+        initPluginsWhenInstalled.delay(1000, window, [username,password]);
+    }
+}
+
+//onunload在firefox下面无效, onbeforeunload都有效
+if (!Browser.Engine.trident) {
+    window.addEvent('beforeunload', doLogout);
+}
+window.addEvent('unload', doLogout);
+
+window.addEvent('domready', function() {
+    Site.currentPage.isSetup = true;
+    document.title = tl('w_Setup');
+    loadPlugin(true);
+
+    var lg = new RPCLogin();
+    var url = window.location.href;
+    var sInd = url.indexOf('?');
+    if (sInd < 0) {
+        location.href = '../';
+    } else {
+        var keyStr = url.slice(sInd + 1);
+        var paramHash = parseParams(Base64.decode(keyStr));
+        var username = '';
+        var password = '';
+        if (paramHash < 0) {
+            //兼容明文username=admin&password=admin
+            paramHash = parseParams(keyStr);
+            if (paramHash < 0) {;
+            } else {
+                username = paramHash.get('username');
+                password = paramHash.get('password');
+            }
+        } else {
+            username = paramHash.get('username');
+            password = paramHash.get('password');
+        }
+
+        //username_cfg在set.js中定义， 在此处赋值
+        username_cfg = username;
+        if (username == null || password == null) {
+            location.href = '../';
+        } else {
+            var r = lg.login(username, password, $empty);               
+
+            if (r === 1) {
+                base_pwd = Base64.encode(username + ':' + password);
+                alive(300);
+                setInterval("alive(300)", 60 * 1000); 
+                
+                if (hasPlugin && $('ocx')) {
+                    // 如果使用HTTPS登录WEB，就去获取HTTP端口号
+                    if(location.protocol.toLowerCase().contains('https')){
+                        Site.httpport = getHttpPort();
+                    }
+                    loginOCX(username, password);
+                    $('ocx').SetModuleMode(1);
+                } else {
+                    initPluginsWhenInstalled.delay(1000, window, [username,password]);
+                }
+                var camera_videoInput = new VideoInput();
+                camera_videoInput.getCapsEx(function(jsonObj) {
+                    if (JSON.decode(jsonObj).result) {
+                        var json = JSON.decode(jsonObj).params.caps;
+                        g_isABFFunction = json.ABFFunction.Support;//ABF 自动调后焦
+                    }
+                }, 0, 'ALL', false);
+                camera_videoInput.getCaps(function(jsonObj) {
+                    if (JSON.decode(jsonObj).result) {
+                        var json = JSON.decode(jsonObj).params.caps;
+                        g_isHasFocus = json.ElectricFocus;
+                        g_isHasSyncFocus = json.SyncFocus;
+                    }
+                }, 0, false); 
+                var rpcCall = new RPCCall();
+                var autioJson = rpcCall.getRequest('devAudioInput.factory.getCollect', null);
+                var talkAudioJson = rpcCall.getRequest('media.getAudioOutputDeviceChannels',null);
+                var reqJson = autioJson + ',' + talkAudioJson;
+                rpcCall.doMutiCall(reqJson, function(json) {
+                    var jsons = JSON.decode(json).params;
+                    if (jsons[0].result) {
+                        g_audioInputNum = jsons[0].params.channels;
+                    }
+                    if (jsons[1].result) {
+                        g_audioOutputNum = jsons[1].params.channels;
+                    }
+                }, false);
+                if (isEnable('is_8M_Flash')) {
+                    ALARM_IN_NUMBER = 0;
+                    ALARM_OUT_NUMBER = 0;
+                }
+                var magicBox = new MagicBox();
+                magicBox.getProductDef(['WirelessAlarm', 'VolumeDetect', 'AnomalyDetect', 'MutationDetect','VideoAnalyse','IntelliTracker'], function(text, json){
+                    if (json.result) {
+                        var jsons = json.params;
+                        if (jsons[0].result) {
+                            g_wirelessCap = jsons[0].params.definition.Support;
+                            alarm_Wireless_num = jsons[0].params.definition.AlarmInNum;
+                        }  
+                        
+                        if (jsons[1].result) {
+                            g_audioMangerCap.VolumeDetect = jsons[1].params.definition;
+                        }
+                        if (jsons[2].result) {
+                            g_audioMangerCap.AnomalyDetect = jsons[2].params.definition;
+                        }
+                        if (jsons[3].result) {
+                            g_audioMangerCap.MutationDetect = jsons[3].params.definition;
+                        }
+                        if (jsons[4].result) {
+                            support_scenes = jsons[4].params.definition.SupportScenes;
+                        }
+                        if(jsons[5].result){
+                            support_sceneTypes = jsons[5].params.definition.SupportCategory;
+                        }
+                        g_audioMangerCap.audioMangerCap = g_audioMangerCap.VolumeDetect || g_audioMangerCap.AnomalyDetect || g_audioMangerCap.MutationDetect;
+                    }
+                }, false);
+                
+                // 下载设置页
+                (new Request.HTML({
+                    url: '../set.htm',
+                    onSuccess: function(trees, eles, html, js) {
+                        $('set_page_wrap').innerHTML = html;
+                        PageSet.init();
+                        document.body.style.background = '#191919';
+                    }
+                })).get();
+            } else {
+                alert(tl('Login failure!'));
+                location.href = '../';
+            }        
+        }
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+	"DeviceTypeTransform" : {
+		"General":{
+			"IPC-HFW1120S" : "IPM-743E",
+			"IPC-HDW1220S" : "IP2M-844E",
+			"IPC-HFW1220S" : "IP2M-842E",
+			"IPC-HDW1220M" : "IP2M-844E",
+            "IP2M-844E" : "IP2M-844E",
+			"IPM-743E" : "IPM-743E",
+			"IP2M-842E" : "IP2M-842E",
+			"CE-C100" : "IP Camera",
+			"CE-TP1"  : "IP Camera",
+			"CE-TO1"  : "IP Camera"
+		},
+		"CEList" : {
+			"CE-C100" : "LC003",
+			"CE-C10S" : "LC004"
+		}
+	}
+}

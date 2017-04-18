@@ -1,0 +1,113 @@
+﻿[PlayFunc]
+
+//是否显示自动注册,1:显示,0:不显,默认:不显示
+show_auto_register = 1
+
+//串口设置是否显示,1:显示,0:不显,默认:不显示
+show_comm_config = 0
+
+//SNMP设置是否显示,1:显示,0:不显,默认:显示
+show_SNMP_config = 0
+
+//728WP型部分设备I帧间隔始终为12，1:I帧间隔按原先逻辑,0:I帧间隔12,默认:1
+special_GOP_728WP = 1
+
+//ATM叠加是否显示，1:显示,0:不显,默认不显示
+show_ATM_config = 0
+
+//是否显示网络存储部分内容,1:显示,0:不显,默认:不显示
+show_NAS_config = 0
+
+//是否显示设备类型,1:显示,0:不显,默认:显示
+show_Device_type = 0
+
+//是否是k6设备,1:是,0:不是,默认:不是
+is_k6_DeviceType = 0
+
+//是否显示设备发现是否是否使能 ，1:显示,0:不显示,默认不显示
+is_show_startDeviceDiscover = 0
+
+//是否显示UPNP模式，1:显示,0:不显示,默认显示
+is_show_upnpMode = 1
+ 
+//是否显示LDAP登录用户选择，1：显示，0：不显示，默认不显示
+is_show_LDAP = 0
+
+//是否显示开启远程日志记录， 1：显示， 0：不显示，默认不显示
+is_show_Syslog = 0
+
+//是否使用mac插件,1:是,0:不是,默认:不是
+use_mac_plugins = 1
+
+//是否开启MP4下载格式,1:是,0:不是,默认:不是
+is_show_MP4DownLoad = 0
+
+// 是否启用VPN证书功能, 1：显示， 0：不显示，默认不显示
+is_show_VPN_Certificate = 0
+
+
+//是否显示抓图码流可选主辅码流模式,1:可选,0:不可选,默认可选
+is_has_SnapFormatAs = 0
+
+//是否显示动检实时监测图,1:显示,0:不显示,默认显示
+is_has_detectPic = 1
+
+// Windows 平台插件的的版本号
+win_plugins_version = 3.0.0.2
+
+// Mac 平台插件的的版本号
+mac_plugins_version = 3.0.0.2
+
+//鼠标控制云台, 1:显示,0:不显示,默认不显示
+is_show_mousecontrolptz = 0
+
+//是不是显示信息标注, 1:显示,0:不显示,默认不显示
+is_show_duck = 1
+
+// 视频动检 默认的灵敏度值
+videodetect_default_sensitive = 58
+
+// 视频动检 默认的面积阈值
+videodetect_default_threshold = 4
+
+// 是否显示 视频设置-视频叠加-地理位置 设置，1:显示, 0: 不显示, 默认不显示
+is_show_LocationInfo = 1
+
+//DHBONJOUR设置是否显示,1:显示,0:不显,默认:显示
+show_bonjour_config = 1
+
+//是否显示HTTPS页面, 1：显示， 0：不显示，默认不显示
+is_show_HTTPS = 0
+
+// 网络存储需要加载协议，采用掩码控制 100 分别代表 NFS ISCSI SMB
+NAS_Protocol_Mask = 100
+
+//区分385智能还是s2，1为385，0为s2；默认385
+is_385_intellent = 1
+
+//是否显示摄像头属性报警联动控制日夜切换 1:显示，0 不显示 ，默认不显示
+is_show_switchByAlarm = 0
+
+//是否显示图片叠加功能 1：显示 0：不显示 默认显示
+is_show_pic_OSD = 0
+
+//是否显示平台接入 1：显示 0：不显示 默认显示
+is_show_platform = 0
+
+//是否显示gamma属性 1：显示 0：不显示 默认显示
+is_show_Gamma = 1
+
+//是否显示osd字体设置模式,1:可选,0:不可选,默认不可选
+is_show_fontSize = 0
+
+//是否显示走廊模式2(逆时针90度):  0不显示, 1显示；默认不显示
+is_show_rotate2 = 1
+//是否显示roi 0不显示 1显示；默认显示
+is_show_roi = 1
+//摄像头属性 是否显示1/100000： 0不显示 1显示 默认不显示
+is_show_ExposureSpeed = 1
+
+//8M flash
+is_8M_Flash = 1
+
+is_show_T2UServer = 1

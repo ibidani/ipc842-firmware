@@ -1,0 +1,2 @@
+function alive(b){if(rpcCore.sessionID==null||rpcCore.sessionID==void 0)top.location="/";(new KeepAlive).start(b,function(){var a=Base64.decode(base_pwd).split(":"),b=a[0],a=a[1];(new RPCLogin).login(b,a,function(){alarmCGI.close();clearInterval(alarm_timer);alarm_timer=setInterval("showAlarmTips()",1E3);clearInterval(g_aliveInterval);alive(300);g_aliveInterval=setInterval("alive(300)",6E4)})})}
+function doLogout(b){var a=new RPCLogin;b===void 0?Browser.ie&&Browser.version<=7?a.logout(!0):a.logout(!1):a.logout(b)};

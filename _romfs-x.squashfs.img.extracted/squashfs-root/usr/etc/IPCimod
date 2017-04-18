@@ -1,0 +1,122 @@
+#! /bin/sh
+
+/sbin/syshelper 60 &
+/usr/sbin/upgraded &
+
+insmod /usr/lib/modules/sensor.ko
+
+ifconfig lo up
+
+#解析设备名称和前端类型
+PRODUCT=$(gethwid 0)
+temp=${PRODUCT##*hwidValue == }
+product_name=${temp%% *}
+echo product_name =$product_name
+
+STRSEN=$(gethwid 4)
+temp=${STRSEN##*hwidValue == }
+fvideo_chip=${temp%% *}
+echo fvideo_chip = $fvideo_chip
+
+SD_CARD=$(gethwid 11)
+temp=${SD_CARD##*hwidValue == }
+sdcard_cap=${temp%% *}
+echo sdcard_cap = $sdcard_cap
+
+if [ "$sdcard_cap" = "0" ];then
+	cap_sd=0
+else
+	cap_sd=1
+fi
+
+#根据设备型号确定驱动加载能力
+cap_wifi=0
+cap_3g=0
+cap_eth0=1
+cap_motor=0
+
+if [ $cap_eth0 -eq 1 ];then
+	insmod /usr/lib/modules/hieth.ko
+	netinit if=eth0 default	
+	netinit6 if=eth0
+fi
+
+
+if [ $cap_sd -eq 1 ];then
+	insmod /usr/lib/modules/nls_cp936.ko
+	insmod /usr/lib/modules/fat.ko
+	insmod /usr/lib/modules/vfat.ko
+	insmod /usr/lib/modules/sdcard.ko
+fi
+
+
+#解压缩pd到tmp目录
+unzip /mnt/pd/product.zip -d /var/tmp > /dev/null
+
+#解压缩2A参数到tmp目录
+#unzip /usr/data/2Acfg.zip -d /var/tmp > /dev/null
+
+#创建pd目录
+mkdir -p /var/tmp/pd
+
+#将设备名映射文件拷贝的pd分区
+cp -f /var/tmp/product/ProductTransform /var/tmp/pd/
+
+
+#根据不同的设备类型拷贝pd文件和2A参数文件
+
+#根据设备型号确定需要用product下的哪个目录以及2Acfg下的哪个目录,TP1 TO1使用TP1的配置
+case "$product_name" in
+
+	 "IPC-HFW1020RM" | "IPC-HFW1020R" | "IPC-HDW1020S" | "IPC-HD1020C" | "IPC-HFW1020S" )
+		product=IPC-HFW1XXX	
+		;;
+	"IPC-HFW1000" | "IPC-HFW1025B" )
+		product=IPC-HFW1000	
+		/usr/etc/cachesReleas.sh &   #强制定时释放caches内存
+		;;		
+	"IPC-HFW1120R" | "IPC-HD1120C" )
+		product=IPC-HFW11XX	
+		;;
+	"IPC-HFW1220RM" )
+		product=IPC-HFW12XX	
+		;;	
+esac
+
+if  [ "$product_name" = "IPC-HFW1025B" ];then	
+	bootargs=$(cat /proc/cmdline)
+	temp=${bootargs##*mem=}
+	old_size=${temp%% *}
+	mem_size="44M"
+	echo "$old_size $mem_size"
+	
+	#如果内存大小不匹配，则进行修改
+	if [ $old_size != $mem_size ];then
+		echo "Change Linux mem from $old_size to $mem_size"
+		armbenv -s bootargs "mem=44M console=ttyS0,115200 root=/dev/mtdblock4 rootfstype=squashfs"
+		reboot
+	fi
+fi
+
+if [ "$product" != "" ];then
+    echo product = $product
+	cp -f /var/tmp/product/$product/*  /var/tmp/pd/
+	#有SD卡的设备，默认存储点为本地开启， 无SD卡设备， 默认FTP存储点开启
+	if [ $cap_sd -eq 0 ];then
+		sed 's/\"FTP\" \: false/\"FTP\" \: true/' /var/tmp/pd/CustomConfig | \
+		sed 's/\"Local\" \: true/\"Local\" \: false/' | \
+		sed 's/\"Remote\" \: false/\"Remote\" \: true/' | \
+		sed 's/\"Local\" \: false, \"FTP\" \: true/\"FTP\" \: true, \"Local\" \: false/'  > /var/tmp/pd/CustomConfig~
+		mv -f /var/tmp/pd/CustomConfig~ /var/tmp/pd/CustomConfig
+	fi
+fi
+#sed 's/\"NTP\" \:{\"Enable\" \: false/\"NTP\" \:{\"Enable\" \: true/' > /var/tmp/pd/CustomConfig~
+#mv -f /var/tmp/pd/CustomConfig~ /var/tmp/pd/CustomConfig
+
+#删除临时目录
+rm -rf /var/tmp/product
+
+
+
+
+

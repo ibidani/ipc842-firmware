@@ -1,0 +1,48 @@
+#! /bin/sh
+
+if [ -f /proc/dahua/fsmountcmd ]; then
+	echo #! /bin/sh > /var/script
+	cat /proc/dahua/fsmountcmd >> /var/script
+	chmod 777 /var/script
+	/var/script
+	rm /var/script
+else
+	mount /dev/mtdblock5 /mnt/web/
+	mount /dev/mtdblock6 /mnt/pd/
+	mount /dev/mtdblock7 /mnt/custom/
+	mount /dev/mtdblock8 /usr/
+	mnt_jffs2 /dev/mtdblock9 /mnt/syslog jffs2
+	mnt_jffs2 /dev/mtdblock10 /mnt/mtd jffs2
+fi
+
+KEYBOARD=0
+CMDLINE="/proc/dahua/bootpara"
+KEYBOARD=`cat $CMDLINE`
+KEYBOARD=${KEYBOARD##*dh_keyboard:}
+KEYBOARD=${KEYBOARD%%ethaddr*}
+if [ $KEYBOARD == '1' ];then
+    echo "keyboard = 1"
+    ln -s /dev/null /dev/mytty
+
+else
+     echo "keyboard = 0"
+    ln -s /dev/ttyS0 /dev/mytty
+    
+fi
+
+mkdir -p /var/tmp
+
+mkdir -p /mnt/mtd/Config /mnt/mtd/Log /mnt/backup/Config /mnt/mtd/Config/ppp /mnt/mtd/3A /var/tmp
+mkdir -p /mnt/backup/debug
+mkdir -p /var/tmp/autoFix
+
+touch /mnt/mtd/Config/ppp/options
+touch /mnt/mtd/Config/ppp/pppoe-enable
+touch /mnt/mtd/Config/ppp/pap-secrets
+touch /mnt/mtd/Config/ppp/pppoesessionctx
+touch /mnt/mtd/Config/ppp/pppoe-redial_time
+touch /mnt/mtd/Config/dial-ip
+
+/sbin/telnetd &
+/usr/etc/imod
+
